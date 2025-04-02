@@ -2,12 +2,19 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
-import { CategoryEnum, Transaction } from '../transaction/entities/transaction.entity';
+import {
+  CategoryEnum,
+  Transaction,
+} from '../transaction/entities/transaction.entity';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { TransactionService } from './transaction.service';
 
-jest.mock('moment', () => () => ({ startOf: jest.fn().mockReturnThis(), endOf: jest.fn().mockReturnThis(), format: jest.fn() }));
+jest.mock('moment', () => () => ({
+  startOf: jest.fn().mockReturnThis(),
+  endOf: jest.fn().mockReturnThis(),
+  format: jest.fn(),
+}));
 
 describe('TransactionService', () => {
   let service: TransactionService;
@@ -33,7 +40,9 @@ describe('TransactionService', () => {
     }).compile();
 
     service = module.get<TransactionService>(TransactionService);
-    transactionRepo = module.get<Repository<Transaction>>(getRepositoryToken(Transaction));
+    transactionRepo = module.get<Repository<Transaction>>(
+      getRepositoryToken(Transaction),
+    );
   });
 
   it('should be defined', () => {
@@ -45,7 +54,10 @@ describe('TransactionService', () => {
       const mockTransactions = [{ id: 1, amount: 100 }];
       mockTransactionRepo.find.mockResolvedValue(mockTransactions);
 
-      const result = await service.getTransactions(new Date('2025-03-01'), new Date('2025-03-12'));
+      const result = await service.getTransactions(
+        new Date('2025-03-01'),
+        new Date('2025-03-12'),
+      );
 
       expect(transactionRepo.find).toHaveBeenCalled();
       expect(result).toEqual(mockTransactions);
@@ -59,7 +71,9 @@ describe('TransactionService', () => {
 
       const result = await service.findOne(1);
 
-      expect(transactionRepo.findOne).toHaveBeenCalledWith({ where: { id: 1 } });
+      expect(transactionRepo.findOne).toHaveBeenCalledWith({
+        where: { id: 1 },
+      });
       expect(result).toEqual(mockTransaction);
     });
 
@@ -72,7 +86,12 @@ describe('TransactionService', () => {
 
   describe('create', () => {
     it('should create and return a transaction', async () => {
-      const createDto: CreateTransactionDto = { amount: 200, category: CategoryEnum.food, date: new Date(), description: 'descr' };
+      const createDto: CreateTransactionDto = {
+        amount: 200,
+        category: CategoryEnum.food,
+        date: new Date(),
+        description: 'descr',
+      };
       const mockTransaction = { id: 1, ...createDto };
       mockTransactionRepo.save.mockResolvedValue(mockTransaction);
 

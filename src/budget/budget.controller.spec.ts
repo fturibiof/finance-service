@@ -38,14 +38,23 @@ describe('BudgetController', () => {
 
       const result = await controller.getBudgets('2025-03-01', '2025-03-12');
 
-      expect(service.getBudgets).toHaveBeenCalledWith(new Date('2025-03-01'), new Date('2025-03-12'));
+      expect(service.getBudgets).toHaveBeenCalledWith(
+        new Date('2025-03-01'),
+        new Date('2025-03-12'),
+      );
       expect(result).toEqual(mockBudgets);
     });
   });
 
   describe('create', () => {
     it('should call create with correct parameters', async () => {
-      const dto: CreateBudgetDto = { amount: 200, category: CategoryEnum.food, startDate: new Date(), endDate: new Date(), description: 'desc' };
+      const dto: CreateBudgetDto = {
+        amount: 200,
+        category: CategoryEnum.food,
+        startDate: new Date(),
+        endDate: new Date(),
+        description: 'desc',
+      };
       const mockBudget = { id: 1, ...dto };
       mockBudgetService.create.mockResolvedValue(mockBudget);
 

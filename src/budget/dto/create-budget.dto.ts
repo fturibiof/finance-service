@@ -1,6 +1,5 @@
-import { IsDate, IsEnum, IsNumber, IsString } from "class-validator";
-import { CategoryEnum } from "../../transaction/entities/transaction.entity";
-
+import { IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
+import { CategoryEnum } from '../../transaction/entities/transaction.entity';
 
 export class CreateBudgetDto {
   @IsNumber()
@@ -13,7 +12,7 @@ export class CreateBudgetDto {
   endDate: Date;
 
   @IsString()
-  description: string
+  description: string;
 
   @IsEnum(CategoryEnum)
   category: CategoryEnum;

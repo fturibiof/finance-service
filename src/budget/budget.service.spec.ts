@@ -8,7 +8,11 @@ import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 import { CategoryEnum } from '../transaction/entities/transaction.entity';
 
-jest.mock('moment', () => () => ({ startOf: jest.fn().mockReturnThis(), endOf: jest.fn().mockReturnThis(), format: jest.fn() }));
+jest.mock('moment', () => () => ({
+  startOf: jest.fn().mockReturnThis(),
+  endOf: jest.fn().mockReturnThis(),
+  format: jest.fn(),
+}));
 
 describe('BudgetService', () => {
   let service: BudgetService;
@@ -46,7 +50,10 @@ describe('BudgetService', () => {
       const mockBudgets = [{ id: 1, amount: 100 }];
       mockBudgetRepo.find.mockResolvedValue(mockBudgets);
 
-      const result = await service.getBudgets(new Date('2025-03-01'), new Date('2025-03-12'));
+      const result = await service.getBudgets(
+        new Date('2025-03-01'),
+        new Date('2025-03-12'),
+      );
 
       expect(budgetRepo.find).toHaveBeenCalled();
       expect(result).toEqual(mockBudgets);
@@ -73,7 +80,13 @@ describe('BudgetService', () => {
 
   describe('create', () => {
     it('should create and return a budget', async () => {
-      const createDto: CreateBudgetDto = { amount: 200, category: CategoryEnum.food, startDate: new Date(), endDate: new Date(), description: 'descr' };
+      const createDto: CreateBudgetDto = {
+        amount: 200,
+        category: CategoryEnum.food,
+        startDate: new Date(),
+        endDate: new Date(),
+        description: 'descr',
+      };
       const mockBudget = { id: 1, ...createDto };
       mockBudgetRepo.save.mockResolvedValue(mockBudget);
 

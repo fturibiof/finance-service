@@ -1,5 +1,5 @@
 import { Between, Repository } from 'typeorm';
-import * as moment from "moment";
+import * as moment from 'moment';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Transaction } from './entities/transaction.entity';
@@ -8,18 +8,21 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 
 @Injectable()
 export class TransactionService {
-
-  constructor(@InjectRepository(Transaction) private transactionRepo: Repository<Transaction>) { }
+  constructor(
+    @InjectRepository(Transaction)
+    private transactionRepo: Repository<Transaction>,
+  ) {}
 
   getTransactions(start?: Date, end?: Date): Promise<Transaction[]> {
-    if (!start) start = new Date(moment().startOf('month').format('YYYY-MM-DD'));
+    if (!start)
+      start = new Date(moment().startOf('month').format('YYYY-MM-DD'));
     if (!end) end = new Date(moment().endOf('month').format('YYYY-MM-DD'));
     return this.transactionRepo.find({
       where: [
         {
           date: Between(start, end),
-        }
-      ]
+        },
+      ],
     });
   }
 

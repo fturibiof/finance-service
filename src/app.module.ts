@@ -9,8 +9,8 @@ import dbConfig from './config/db.config';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: // TODO: Separate db for prod
-        dbConfig,
+      // TODO: Separate db for prod
+      useFactory: dbConfig,
     }),
     TransactionModule,
     BudgetModule,
@@ -18,4 +18,4 @@ import dbConfig from './config/db.config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

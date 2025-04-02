@@ -1,17 +1,25 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { BudgetService } from './budget.service';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 
-
 @Controller('budget')
 export class BudgetController {
-  constructor(private readonly budgetService: BudgetService) { }
+  constructor(private readonly budgetService: BudgetService) {}
 
   @Get()
   async getBudgets(
     @Query('start') start?: string,
-    @Query('end') end?: string
+    @Query('end') end?: string,
   ): Promise<any[]> {
     const startDate = start ? new Date(start) : undefined;
     const endDate = end ? new Date(end) : undefined;
@@ -37,5 +45,4 @@ export class BudgetController {
   remove(@Param('id') id: string) {
     return this.budgetService.remove(+id);
   }
-
 }

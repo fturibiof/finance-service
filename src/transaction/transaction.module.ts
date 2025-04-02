@@ -9,6 +9,4 @@ import { Transaction } from './entities/transaction.entity';
   controllers: [TransactionController],
   providers: [TransactionService],
 })
-export class TransactionModule {
-
-}
+export class TransactionModule {}

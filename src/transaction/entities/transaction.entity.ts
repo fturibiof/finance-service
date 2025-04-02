@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum CategoryEnum {
   rent = 'rent',
   leisure = 'leisure',
   food = 'food',
   transportation = 'transportation',
-  other = 'other'
+  other = 'other',
 }
 
 @Entity()
@@ -14,7 +14,7 @@ export class Transaction {
   id: number;
 
   @Column('enum', { enum: CategoryEnum })
-  category: CategoryEnum
+  category: CategoryEnum;
 
   @Column()
   amount: number;
@@ -24,5 +24,4 @@ export class Transaction {
 
   @Column({ nullable: true })
   description?: string;
-
 }

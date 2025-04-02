@@ -1,5 +1,5 @@
 import { Between, Repository } from 'typeorm';
-import * as moment from "moment";
+import * as moment from 'moment';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Budget } from './entities/budget.entity';
@@ -8,11 +8,13 @@ import { UpdateBudgetDto } from './dto/update-budget.dto';
 
 @Injectable()
 export class BudgetService {
-
-  constructor(@InjectRepository(Budget) private budgetRepo: Repository<Budget>) { }
+  constructor(
+    @InjectRepository(Budget) private budgetRepo: Repository<Budget>,
+  ) {}
 
   getBudgets(start?: Date, end?: Date): Promise<Budget[]> {
-    if (!start) start = new Date(moment().startOf('month').format('YYYY-MM-DD'));
+    if (!start)
+      start = new Date(moment().startOf('month').format('YYYY-MM-DD'));
     if (!end) end = new Date(moment().endOf('month').format('YYYY-MM-DD'));
     return this.budgetRepo.find({
       where: [
@@ -22,7 +24,7 @@ export class BudgetService {
         {
           endDate: Between(start, end),
         },
-      ]
+      ],
     });
   }
 

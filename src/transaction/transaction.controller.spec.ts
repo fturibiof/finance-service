@@ -20,7 +20,9 @@ describe('TransactionController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TransactionController],
-      providers: [{ provide: TransactionService, useValue: mockTransactionService }],
+      providers: [
+        { provide: TransactionService, useValue: mockTransactionService },
+      ],
     }).compile();
 
     controller = module.get<TransactionController>(TransactionController);
@@ -34,18 +36,31 @@ describe('TransactionController', () => {
   describe('getTransactions', () => {
     it('should call getTransactions with correct parameters', async () => {
       const mockTransactions = [{ id: 1, amount: 100 }];
-      mockTransactionService.getTransactions.mockResolvedValue(mockTransactions);
+      mockTransactionService.getTransactions.mockResolvedValue(
+        mockTransactions,
+      );
 
-      const result = await controller.getTransactions('2025-03-01', '2025-03-12');
+      const result = await controller.getTransactions(
+        '2025-03-01',
+        '2025-03-12',
+      );
 
-      expect(service.getTransactions).toHaveBeenCalledWith(new Date('2025-03-01'), new Date('2025-03-12'));
+      expect(service.getTransactions).toHaveBeenCalledWith(
+        new Date('2025-03-01'),
+        new Date('2025-03-12'),
+      );
       expect(result).toEqual(mockTransactions);
     });
   });
 
   describe('create', () => {
     it('should call create with correct parameters', async () => {
-      const dto: CreateTransactionDto = { amount: 200, category: CategoryEnum.food, date: new Date(), description: 'desc' };
+      const dto: CreateTransactionDto = {
+        amount: 200,
+        category: CategoryEnum.food,
+        date: new Date(),
+        description: 'desc',
+      };
       const mockTransaction = { id: 1, ...dto };
       mockTransactionService.create.mockResolvedValue(mockTransaction);
 
