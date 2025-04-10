@@ -1,3 +1,4 @@
+import './tracing';
 import { NestFactory } from '@nestjs/core';
 import { WinstonModule } from 'nest-winston';
 import { AppModule } from './app.module';
