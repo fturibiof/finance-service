@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { NotFoundException } from '@nestjs/common';
+import { Logger, NotFoundException } from '@nestjs/common';
 import { BudgetService } from './budget.service';
 import { Repository } from 'typeorm';
 import { Budget } from './entities/budget.entity';
@@ -17,6 +17,7 @@ jest.mock('moment', () => () => ({
 describe('BudgetService', () => {
   let service: BudgetService;
   let budgetRepo: Repository<Budget>;
+  let logger: Logger;
 
   const mockBudgetRepo = {
     find: jest.fn(),
@@ -34,10 +35,12 @@ describe('BudgetService', () => {
           provide: getRepositoryToken(Budget),
           useValue: mockBudgetRepo,
         },
+        Logger
       ],
     }).compile();
 
     service = module.get<BudgetService>(BudgetService);
+    logger = module.get<Logger>(Logger);
     budgetRepo = module.get<Repository<Budget>>(getRepositoryToken(Budget));
   });
 

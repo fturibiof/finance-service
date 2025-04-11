@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { NotFoundException } from '@nestjs/common';
+import { Logger, NotFoundException } from '@nestjs/common';
 import {
   CategoryEnum,
   Transaction,
@@ -19,6 +19,7 @@ jest.mock('moment', () => () => ({
 describe('TransactionService', () => {
   let service: TransactionService;
   let transactionRepo: Repository<Transaction>;
+  let logger: Logger;
 
   const mockTransactionRepo = {
     find: jest.fn(),
@@ -36,10 +37,12 @@ describe('TransactionService', () => {
           provide: getRepositoryToken(Transaction),
           useValue: mockTransactionRepo,
         },
+        Logger
       ],
     }).compile();
 
     service = module.get<TransactionService>(TransactionService);
+    logger = module.get<Logger>(Logger);
     transactionRepo = module.get<Repository<Transaction>>(
       getRepositoryToken(Transaction),
     );
