@@ -18,7 +18,8 @@ sdk.start();
 console.log('✅ OpenTelemetry started');
 
 process.on('SIGTERM', () => {
-  sdk.shutdown()
+  sdk
+    .shutdown()
     .then(() => console.log('OpenTelemetry shut down'))
     .catch((err) => console.error('Error shutting down OpenTelemetry', err))
     .finally(() => process.exit(0));

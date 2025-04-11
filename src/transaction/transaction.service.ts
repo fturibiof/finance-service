@@ -12,7 +12,7 @@ export class TransactionService {
     @InjectRepository(Transaction)
     private transactionRepo: Repository<Transaction>,
     private readonly logger: Logger,
-  ) { }
+  ) {}
 
   SERVICE: string = TransactionService.name;
 
@@ -41,10 +41,7 @@ export class TransactionService {
     });
 
     if (!transaction) {
-      this.logger.error(
-        `Could not find transaction ${id}`,
-        this.SERVICE,
-      );
+      this.logger.error(`Could not find transaction ${id}`, this.SERVICE);
       throw new NotFoundException();
     }
     return transaction;

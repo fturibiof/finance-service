@@ -9,4 +9,4 @@ import { Budget } from './entities/budget.entity';
   controllers: [BudgetController],
   providers: [BudgetService, Logger],
 })
-export class BudgetModule { }
+export class BudgetModule {}

@@ -35,7 +35,7 @@ describe('BudgetService', () => {
           provide: getRepositoryToken(Budget),
           useValue: mockBudgetRepo,
         },
-        Logger
+        Logger,
       ],
     }).compile();
 
@@ -46,6 +46,7 @@ describe('BudgetService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(logger).toBeDefined();
   });
 
   describe('getBudgets', () => {

@@ -14,7 +14,7 @@ const devLogger: LoggerOptions = {
   format: format.combine(
     format.timestamp(),
     format.errors({ stack: true }),
-    format.json()
+    format.json(),
   ),
   transports: [
     new transports.Console(options.console),

@@ -37,7 +37,7 @@ describe('TransactionService', () => {
           provide: getRepositoryToken(Transaction),
           useValue: mockTransactionRepo,
         },
-        Logger
+        Logger,
       ],
     }).compile();
 
@@ -50,6 +50,7 @@ describe('TransactionService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(logger).toBeDefined();
   });
 
   describe('getTransactions', () => {
