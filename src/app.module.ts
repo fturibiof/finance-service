@@ -31,7 +31,6 @@ import { BudgetModule } from './budget/budget.module';
       useFactory: (configService: ConfigService) =>
         // withRetries(async () => {
         {
-          console.log('current DB host:', configService?.get('DB_HOST'));
           return {
             type: 'postgres',
             host: configService.get('DB_HOST'),
